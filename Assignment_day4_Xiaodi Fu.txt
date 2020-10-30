@@ -1,0 +1,198 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package javaapplication1;
+/**
+ *
+ * @author Xiaodi Fu
+ */
+
+    
+public class StringArrayUtils {
+    
+    //return true if value appears in arrays
+    public static boolean contains(String[] array, String word){
+    if (array == null || array.length == 0){
+       return false;
+    }
+
+    for (String element : array){
+        if (element.equals(word)){
+            return true;
+        }
+    }
+    return false;
+    }
+    
+    //get the first element of the string array
+    public static String getFirstElement(String[] array){
+        if (array == null || array.length == 0){
+            return null;
+        }
+        return array[0];
+    };
+    
+    //get the last element of the string array
+    public static String getLastElement(String[] array){
+        if (array == null || array.length == 0){
+            return null;
+        }
+        return array[array.length - 1];
+    }
+    
+    //get Number Of Occurrences
+    public static int getNumberOfOccurrences(String[] array, String word){
+        if (array == null || array.length == 0){
+           return 0;
+        }
+        
+        int number = 0;
+        for (String element : array){
+            if (element.equals(word)){
+                number += 1;
+            }
+        }
+        return number;
+    }
+    
+    //get Second Element of the array
+    public static String getSecondElement(String[] array){
+        if (array == null || array.length < 2){
+            return null;
+        }
+        
+        return array[1];
+    }
+    
+    //get the next-to-last element of the array
+    public static String getSecondToLastElement(String[] array){
+        if (array == null || array.length < 2){
+            return null;
+        }
+        
+        return array[array.length - 2];
+    }
+    
+    //check if the array is panlindromic
+    public static boolean isPalindromic(String[] array){
+        if (array == null || array.length == 1){
+            return true;
+        }
+        
+        boolean check = true;
+        int left = 0;
+        int right = array.length - 1;
+        while (left < right){
+            if (array[left].equals(array[right])){
+                left += 1;
+                right -= 1;
+            }
+            else{
+                check = false;
+                break;
+            }
+        }
+        return check;
+        
+    }
+    
+    //check if the array is isPangramic
+    public static boolean isPangramic(String[] array) {
+
+        String alphabet = "abcdefghijklmnopqrstuvwxyz";
+        boolean pan = true;
+
+        for (int i = 0; i<26; i++){
+            boolean check = false;
+            for(String string:array){
+                if (string.contains(Character.toString(alphabet.charAt(i))) || string.contains(Character.toString( Character.toUpperCase(alphabet.charAt(i))))){    
+                    check = true;
+                }
+
+            }
+            if (check == false){
+                pan = false;
+                break;
+            }
+        }
+        return pan;
+    }   
+    
+    
+    //get the number of duplicate words
+    public static int duplicates(String[] array){
+        String dupes = new String();
+        int counter = 0;
+        for (int i=0; i<array.length-1;i++){
+            if (array[i] == array[i+1]){
+                counter++;
+                //dupes += (array[i]);
+            }
+        }
+        return counter;
+    }
+    
+    //remove consecutive duplicates
+    public static String[] removeConsecutiveDuplicates(String[] array) {
+        String [] temp = new String[array.length-duplicates(array)];
+        int j = 0;
+        for(int i = 0; i<array.length-1; i++){
+            if(array[i] != array[i+1]){
+                temp[j] = array[i];
+                j++;
+            }
+        }
+        temp[temp.length-1] = array[array.length-1];
+        return temp;
+    }
+    
+    public static String[] packConsecutiveDuplicates(String[] array){
+        String[] result = new String[array.length-duplicates(array)];
+        int j = 0;
+        result[0]=array[0];
+        for(int i=1; i<array.length; i++){
+            if (array[i] == array[i-1]){
+                result[j] += array[i];
+            }
+            else{
+                j++;
+                result[j]=array[i];
+            }
+        }
+
+        return result;
+    }
+    
+    public static String[] removeValue(String[] array, String valueToRemove) {
+
+        String [] temp = new String[array.length-(getNumberOfOccurrences(array,valueToRemove))];
+        int j = 0;
+        for(int i = 0; i<array.length; i++){
+            if(!array[i].equals(valueToRemove)){
+                temp[j] = array[i];
+                j++;
+            }
+        }
+        
+        return temp;
+    }
+    
+    
+
+    
+    public static String[] reverse(String[] array) {
+
+        for (int i = 0; i<array.length/2; i++){
+            String temp = array[i];
+            array[i] = array[array.length-1-i];
+            array[array.length-1-i] = temp;
+
+        }   
+        return array;
+    }
+}
+
+
+
